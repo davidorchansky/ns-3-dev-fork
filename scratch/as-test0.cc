@@ -45,10 +45,28 @@ class Test {
 public:
   void RunTest();
   void ReceivedPkt(Ptr<Socket> socket);
+  void RoutingPacketTx(std::string context, Ptr<const Packet>, AquaSimAddress nextHop,
+                       AquaSimAddress dest);
+  void RoutingPacketRx(std::string context, Ptr<const Packet>);
 };
 
 void Test::ReceivedPkt(Ptr<Socket> socket) {
   std::cout << "Received a packet\n";
+}
+
+void Test::RoutingPacketRx(std::string context, Ptr<const Packet> pkt) {
+  AquaSimHeader ash;
+  pkt->PeekHeader(ash);
+  auto saddr = ash.GetSAddr().GetAsInt();
+  auto daddr = ash.GetDAddr().GetAsInt();
+  std::cout << context << ": received packet from "<< saddr << " Dest: " << daddr << std::endl;
+}
+void Test::RoutingPacketTx(std::string context, Ptr<const Packet> pkt,
+                           AquaSimAddress nextHop, AquaSimAddress dest) {
+  uint16_t nextHopId = nextHop.GetAsInt();
+  uint16_t destId = dest.GetAsInt();
+  std::cout << context << ": transmit packet to '" << destId
+            << "' ; Next hop: '" << nextHopId << "'" << std::endl;
 }
 
 void Test::RunTest() {
@@ -57,7 +75,7 @@ void Test::RunTest() {
   int sinks = 1;
   uint32_t m_dataRate = 180;   // 120;
   uint32_t m_packetSize = 320; // 32;
-  double range = 40;
+  double range = 25;
 
   std::string asciiTraceFile = "bMAC-trace.asc";
 
@@ -203,6 +221,12 @@ void Test::RunTest() {
     }
     std::cout << "worker ends" << std::endl;
   });
+
+  Config::Connect ("/NodeList/*/DeviceList/*/Routing/PacketReceived",
+    MakeCallback (&Test::RoutingPacketRx, this));
+  Config::Connect ("/NodeList/*/DeviceList/*/Routing/PacketTransmitting",
+    MakeCallback (&Test::RoutingPacketTx, this));
+
   Simulator::Run();
   cont = false;
   std::cout << "end sim. Wait for worker..." << std::endl;

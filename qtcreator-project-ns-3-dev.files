@@ -134,8 +134,8 @@ examples/wireless/wifi-tcp.cc
 examples/wireless/wifi-timing-attributes.cc
 examples/wireless/wifi-wired-bridging.cc
 examples/wireless/wscript
-scratch/scratch-simulator.cc
 scratch/as-test0.cc
+scratch/scratch-simulator.cc
 scratch/subdir/scratch-simulator-subdir.cc
 src/antenna/model/angles.cc
 src/antenna/model/angles.h
