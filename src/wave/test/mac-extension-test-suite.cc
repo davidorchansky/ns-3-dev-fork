@@ -273,7 +273,7 @@ public:
   static NetDeviceContainer  CreatWaveDevice (uint32_t nodesNumber = 2);
 };
 
-#define PI 3.14159265
+const double PI = 3.14159265;
 
 NetDeviceContainer
 TestCaseHelper::CreatWaveDevice (uint32_t nodesNumber)
