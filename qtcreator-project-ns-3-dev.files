@@ -264,6 +264,8 @@ src/aqua-sim-ng/model/aqua-sim-mac-broadcast.cc
 src/aqua-sim-ng/model/aqua-sim-mac-broadcast.h
 src/aqua-sim-ng/model/aqua-sim-mac-copemac.cc
 src/aqua-sim-ng/model/aqua-sim-mac-copemac.h
+src/aqua-sim-ng/model/aqua-sim-mac-dccomms.cc
+src/aqua-sim-ng/model/aqua-sim-mac-dccomms.h
 src/aqua-sim-ng/model/aqua-sim-mac-fama.cc
 src/aqua-sim-ng/model/aqua-sim-mac-fama.h
 src/aqua-sim-ng/model/aqua-sim-mac-goal.cc
